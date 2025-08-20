@@ -43,3 +43,45 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# ================================
+# ARCHIVOS SENSIBLES DE SEGURIDAD
+# ================================
+# Variables de entorno con credenciales
+.env
+.env.local
+.env.*.local
+api/.env
+api/.env.local
+api/.env.production
+api/.env.development
+
+# Archivos de configuración de Firebase (CONTIENEN API KEYS)
+app/android/app/google-services.json
+app/ios/Runner/GoogleService-Info.plist
+app/ios/firebase_app_id_file.json
+
+# Archivos de configuración de servicios en la nube
+**/google-services.json
+**/GoogleService-Info.plist
+**/firebase_app_id_file.json
+
+# Archivos de claves y certificados
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+
+# Archivos de configuración específicos del proyecto
+config/secrets.yaml
+config/credentials.yaml
+secrets/
+credentials/
+
+# Logs que pueden contener información sensible
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
