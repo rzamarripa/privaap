@@ -126,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final authService = Provider.of<AuthService>(context);
     final user = authService.currentUser;
     final isSuperAdmin = user?.isSuperAdmin == true;
+    final isAdmin = user?.role == UserRole.administrador;
 
     return MultiProvider(
       providers: [
@@ -133,8 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: BiometricAuthWrapper(
         child: Scaffold(
+          drawer: (isAdmin && !isSuperAdmin) ? _buildAdminDrawer(context, user) : null,
           body: _getCurrentScreens()[_selectedIndex],
-          bottomNavigationBar: Container(
+          floatingActionButton: (isAdmin && !isSuperAdmin) ? _buildAdminFAB(context) : null,
+          bottomNavigationBar: (isAdmin && !isSuperAdmin) 
+              ? _buildAdminBottomBar(context) 
+              : Container(
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -282,88 +287,287 @@ class _HomeScreenState extends State<HomeScreen> {
     return MediaQuery.of(context).size.width < 400 ? (isSelected ? 11 : 10) : (isSelected ? 13 : 12);
   }
 
-  Widget? _buildFAB(BuildContext context, user) {
-    if (user?.role != UserRole.administrador && user?.isSuperAdmin != true) return null;
-
+  Widget? _buildAdminFAB(BuildContext context) {
     switch (_selectedIndex) {
-      case 0: // Inicio
-        return null;
-      case 1: // Privadas (super admin) o Gastos (usuarios normales)
-        if (user?.isSuperAdmin == true) {
-          // Para super admin, mostrar FAB para crear privada
-          return FloatingActionButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/create-community');
-            },
-            backgroundColor: const Color(0xFF2196F3),
-            heroTag: 'communities_fab',
-            child: const Icon(Icons.add),
-          );
-        } else {
-          // Para usuarios normales, mostrar FAB para crear gasto
-          return FloatingActionButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/add-expense');
-            },
-            backgroundColor: const Color(0xFF2196F3),
-            heroTag: 'expenses_fab',
-            child: const Icon(Icons.add),
-          );
-        }
-      case 2: // Perfil (super admin) o Mensualidades (usuarios normales)
-        if (user?.isSuperAdmin == true) {
-          // Para super admin, no mostrar FAB en perfil
-          return null;
-        } else {
-          // Para usuarios normales, mostrar FAB para crear mensualidad (si es admin)
-          if (user?.role == UserRole.administrador) {
-            return FloatingActionButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/create-monthly-fee');
-              },
-              backgroundColor: const Color(0xFF2196F3),
-              heroTag: 'monthly_fees_fab',
-              child: const Icon(Icons.add),
-            );
-          }
-        }
-        return null;
-      case 3: // Encuestas (usuarios normales)
-        if (user?.isSuperAdmin == true) {
-          // Para super admin, este índice ya no existe
-          return null;
-        } else {
-          // Para usuarios normales, mostrar FAB para crear encuesta
-          return FloatingActionButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/create-survey');
-            },
-            backgroundColor: const Color(0xFF2196F3),
-            heroTag: 'surveys_fab',
-            child: const Icon(Icons.poll),
-          );
-        }
-      case 4: // Perfil (usuarios normales) o Blog (usuarios normales)
-        if (user?.isSuperAdmin == true) {
-          // Para super admin, no mostrar FAB en perfil
-          return null;
-        } else {
-          // Para usuarios normales, mostrar FAB para crear post
-          return FloatingActionButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/create-post');
-            },
-            backgroundColor: const Color(0xFF2196F3),
-            heroTag: 'blog_fab',
-            child: const Icon(Icons.edit),
-          );
-        }
-      case 5: // Perfil (usuarios normales)
-        return null;
+      case 1: // Gastos
+        return FloatingActionButton(
+          onPressed: () => Navigator.pushNamed(context, '/add-expense'),
+          backgroundColor: const Color(0xFF2196F3),
+          tooltip: 'Agregar gasto',
+          child: const Icon(Icons.add, color: Colors.white),
+        );
+      case 2: // Mensualidades 
+        return FloatingActionButton(
+          onPressed: () => Navigator.pushNamed(context, '/create-monthly-fee'),
+          backgroundColor: const Color(0xFF2196F3),
+          tooltip: 'Crear mensualidad',
+          child: const Icon(Icons.add, color: Colors.white),
+        );
+      case 3: // Encuestas
+        return FloatingActionButton(
+          onPressed: () => Navigator.pushNamed(context, '/create-survey'),
+          backgroundColor: const Color(0xFF2196F3),
+          tooltip: 'Crear encuesta',
+          child: const Icon(Icons.poll, color: Colors.white),
+        );
+      case 4: // Blog
+        return FloatingActionButton(
+          onPressed: () => Navigator.pushNamed(context, '/create-post'),
+          backgroundColor: const Color(0xFF2196F3),
+          tooltip: 'Crear post',
+          child: const Icon(Icons.edit, color: Colors.white),
+        );
       default:
         return null;
     }
   }
+
+  // Drawer para administradores con todas las opciones
+  Widget _buildAdminDrawer(BuildContext context, user) {
+    return Drawer(
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF2196F3), Color(0xFF1976D2)],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Header del drawer
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.white.withValues(alpha: 0.2),
+                      child: Icon(
+                        FontAwesomeIcons.userTie,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      user?.name ?? 'Administrador',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Administrador',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(color: Colors.white24, height: 1),
+              // Opciones del drawer
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  children: [
+                    _buildDrawerItem(
+                      icon: FontAwesomeIcons.house,
+                      title: 'Inicio',
+                      isSelected: _selectedIndex == 0,
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onNavItemTapped(0);
+                      },
+                    ),
+                    _buildDrawerItem(
+                      icon: FontAwesomeIcons.creditCard,
+                      title: 'Gastos',
+                      isSelected: _selectedIndex == 1,
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onNavItemTapped(1);
+                      },
+                    ),
+                    _buildDrawerItem(
+                      icon: FontAwesomeIcons.calendar,
+                      title: 'Mensualidades',
+                      isSelected: _selectedIndex == 2,
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onNavItemTapped(2);
+                      },
+                    ),
+                    _buildDrawerItem(
+                      icon: FontAwesomeIcons.squarePollVertical,
+                      title: 'Encuestas',
+                      isSelected: _selectedIndex == 3,
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onNavItemTapped(3);
+                      },
+                    ),
+                    _buildDrawerItem(
+                      icon: FontAwesomeIcons.blog,
+                      title: 'Blog',
+                      isSelected: _selectedIndex == 4,
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onNavItemTapped(4);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(color: Colors.white24, height: 1),
+              // Perfil al final
+              _buildDrawerItem(
+                icon: FontAwesomeIcons.user,
+                title: 'Perfil',
+                isSelected: _selectedIndex == 5,
+                onTap: () {
+                  Navigator.pop(context);
+                  _onNavItemTapped(5);
+                },
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDrawerItem({
+    required IconData icon,
+    required String title,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.white.withValues(alpha: 0.2) : Colors.transparent,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        leading: FaIcon(
+          icon,
+          color: Colors.white,
+          size: 20,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          ),
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
+
+  // Bottom bar simplificado para administradores (solo las 4 más importantes)
+  Widget _buildAdminBottomBar(BuildContext context) {
+    final mainItems = [
+      NavigationItem(icon: FontAwesomeIcons.house, label: 'Inicio'),
+      NavigationItem(icon: FontAwesomeIcons.creditCard, label: 'Gastos'),
+      NavigationItem(icon: FontAwesomeIcons.calendar, label: 'Mensual.'),
+      NavigationItem(icon: FontAwesomeIcons.user, label: 'Perfil'),
+    ];
+
+    final mainIndices = [0, 1, 2, 5]; // Mapeo a los índices reales
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 15,
+            offset: const Offset(0, -5),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+              mainItems.length,
+              (index) => Expanded(
+                child: _buildEnhancedNavItem(
+                  item: mainItems[index],
+                  isSelected: _selectedIndex == mainIndices[index],
+                  onTap: () => _onNavItemTapped(mainIndices[index]),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEnhancedNavItem({
+    required NavigationItem item,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: isSelected ? const Color(0xFF2196F3).withValues(alpha: 0.15) : Colors.transparent,
+                borderRadius: BorderRadius.circular(16),
+                border: isSelected
+                    ? Border.all(color: const Color(0xFF2196F3).withValues(alpha: 0.3), width: 1.5)
+                    : null,
+              ),
+              transform: Matrix4.identity()..scale(isSelected ? 1.05 : 1.0),
+              child: FaIcon(
+                item.icon,
+                size: 24, // Iconos más grandes
+                color: isSelected ? const Color(0xFF2196F3) : Colors.grey[600],
+              ),
+            ),
+            const SizedBox(height: 4),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
+              style: TextStyle(
+                fontSize: 12, // Texto más legible
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                color: isSelected ? const Color(0xFF2196F3) : Colors.grey[600],
+              ),
+              child: Text(
+                item.label,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }
 
 class NavigationItem {
