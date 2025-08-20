@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "277373501171",
+    "project_id": "privapp-99bec",
+    "storage_bucket": "privapp-99bec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277373501171:android:d5f81aa8ec84f97c410186",
+        "android_client_info": {
+          "package_name": "com.example.privapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDarWAp-m7hLBn986zonqjiR7Bln6mPBNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277373501171:android:2e8e8b7a8b945936410186",
+        "android_client_info": {
+          "package_name": "mx.masoft.privaap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDarWAp-m7hLBn986zonqjiR7Bln6mPBNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

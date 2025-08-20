@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(npm install)",
+      "Bash(mkdir:*)",
+      "Bash(npm start)",
+      "mcp__ide__getDiagnostics",
+      "Bash(node:*)",
+      "Bash(pkill:*)",
+      "Bash(flutter run:*)",
+      "Bash(kill:*)",
+      "Bash(flutter clean:*)",
+      "Bash(flutter pub:*)",
+      "Bash(flutter:*)",
+      "Bash(curl:*)",
+      "Bash(find:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": []
+  }
+}
