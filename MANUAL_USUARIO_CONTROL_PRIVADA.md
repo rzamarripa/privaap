@@ -1,4 +1,4 @@
-# 📚 MANUAL DE USUARIO - SISTEMA CONTROL PRIVADA
+# 📚 MANUAL DE USUARIO - SISTEMA PrivApp
 
 ## 📋 TABLA DE CONTENIDOS
 
@@ -14,9 +14,9 @@
 
 ## 1. INTRODUCCIÓN
 
-### 📱 ¿Qué es Control Privada?
+### 📱 ¿Qué es PrivApp?
 
-**Control Privada** es un sistema integral de gestión para comunidades residenciales y privadas que permite administrar de manera eficiente:
+**PrivApp** es un sistema integral de gestión para comunidades residenciales y privadas que permite administrar de manera eficiente:
 
 - 🏠 **Registro y control de casas/unidades habitacionales**
 - 💰 **Gestión de mensualidades y pagos**
@@ -38,6 +38,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 📱 Dispositivos Móviles
 
 #### Android
+
 - **Versión mínima**: Android 5.0 (API 21)
 - **Versión recomendada**: Android 8.0 o superior
 - **RAM mínima**: 2 GB
@@ -45,12 +46,14 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - **Conexión a Internet**: Requerida
 
 #### iOS
+
 - **Versión mínima**: iOS 11.0
 - **Dispositivos compatibles**: iPhone 6s o superior
 - **Almacenamiento**: 100 MB disponibles
 - **Conexión a Internet**: Requerida
 
 ### 🌐 Navegador Web (Panel Administrativo)
+
 - Chrome 90+
 - Safari 14+
 - Firefox 88+
@@ -65,6 +68,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 **Descripción**: Control total del sistema multi-privada
 
 **Permisos exclusivos**:
+
 - ✅ Crear nuevas privadas/comunidades
 - ✅ Asignar administradores a privadas
 - ✅ Ver estadísticas globales del sistema
@@ -78,6 +82,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 **Descripción**: Gestión completa de una privada específica
 
 **Permisos**:
+
 - ✅ Registrar y gestionar casas
 - ✅ Crear y gestionar mensualidades
 - ✅ Registrar pagos y cancelaciones
@@ -94,6 +99,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 **Descripción**: Usuario final del sistema
 
 **Permisos**:
+
 - ✅ Ver estado de sus mensualidades
 - ✅ Ver historial de pagos
 - ✅ Participar en encuestas
@@ -112,7 +118,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 🔐 4.1 AUTENTICACIÓN Y SEGURIDAD
 
 #### Registro de Usuario
+
 1. **Ingreso de datos**:
+
    - 📱 Número de teléfono (10 dígitos)
    - 👤 Nombre completo
    - 📧 Correo electrónico
@@ -124,12 +132,14 @@ Facilitar la administración transparente y eficiente de comunidades residencial
    - Confirmación por correo electrónico
 
 #### Inicio de Sesión
+
 - **Métodos disponibles**:
   - 📱 Teléfono + Contraseña
   - 📧 Correo + Contraseña
   - 🔐 Autenticación biométrica (huella/Face ID)
 
 #### Seguridad Adicional
+
 - 🔄 Recuperación de contraseña por correo
 - 🔐 Encriptación de datos sensibles
 - ⏰ Sesiones con tiempo de expiración
@@ -138,7 +148,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 🏘️ 4.2 GESTIÓN DE PRIVADAS
 
 #### Crear Privada (Solo Super Admin)
+
 **Datos requeridos**:
+
 - 📝 Nombre de la privada
 - 📍 Dirección completa
 - 📱 Teléfono de contacto
@@ -147,7 +159,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - 👤 Administrador asignado
 
 #### Panel de Control de Privada
+
 **Información visible**:
+
 - 📊 Total de casas registradas
 - 👥 Número de residentes activos
 - 💰 Estado financiero general
@@ -157,7 +171,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 🏠 4.3 GESTIÓN DE CASAS
 
 #### Registro de Casa
+
 **Información requerida**:
+
 - 🏠 Número/Identificador de casa
 - 👤 Propietario/Inquilino asignado
 - 💰 Cuota mensual específica
@@ -165,6 +181,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - 📝 Notas adicionales
 
 #### Estados de Casa
+
 - ✅ **Activa**: Con residente asignado
 - ⏸️ **Vacante**: Sin residente
 - 🔧 **En mantenimiento**: Temporalmente inhabitable
@@ -175,6 +192,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Creación de Mensualidades
 
 ##### Mensualidad Individual
+
 1. Seleccionar casa específica
 2. Definir mes y año
 3. Establecer monto
@@ -182,12 +200,14 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 5. Agregar notas (opcional)
 
 ##### Mensualidades Masivas
+
 1. Seleccionar múltiples casas o todas
 2. Definir periodo (mes/año)
 3. Aplicar cuota base o personalizada
 4. Generar todas simultáneamente
 
 #### Estados de Mensualidad
+
 - 🔴 **Pendiente**: Sin pagos registrados
 - 🟡 **Abonado**: Pagos parciales realizados
 - 🟢 **Pagado**: Totalidad cubierta
@@ -196,6 +216,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Registro de Pagos
 
 ##### Proceso de Pago
+
 1. **Selección de mensualidad**
 2. **Ingreso de datos**:
    - 💵 Monto del pago
@@ -210,13 +231,16 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 3. **Confirmación y registro**
 
 ##### Pagos Parciales
+
 - ✅ Sistema permite múltiples abonos
 - 📊 Seguimiento automático del saldo
 - 🔄 Actualización de estado automática
 - 📜 Historial detallado de cada abono
 
 #### Cancelación de Pagos
+
 **Requisitos**:
+
 - Solo administradores pueden cancelar
 - Razón obligatoria de cancelación
 - Registro de auditoría automático
@@ -225,6 +249,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Visualización de Pagos
 
 ##### Vista de Administrador
+
 - 📋 Lista completa de mensualidades
 - 🔍 Filtros por:
   - Estado (pendiente/abonado/pagado)
@@ -235,6 +260,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - 💾 Exportación a Excel/PDF
 
 ##### Vista de Residente
+
 - 🏠 Solo sus mensualidades
 - 📜 Historial de pagos realizados
 - 💰 Saldo pendiente actual
@@ -243,7 +269,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 📊 4.5 GESTIÓN DE GASTOS
 
 #### Registro de Gastos
+
 **Campos requeridos**:
+
 - 📝 Descripción del gasto
 - 💰 Monto
 - 📅 Fecha del gasto
@@ -259,6 +287,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - 📎 Adjuntar comprobantes (fotos/PDF)
 
 #### Categorías de Gastos
+
 - 🔧 **Mantenimiento**: Reparaciones y mejoras
 - 💡 **Servicios**: Luz, agua, gas comunes
 - 👮 **Seguridad**: Vigilancia y sistemas
@@ -269,6 +298,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - ➕ **Otros**: Gastos no categorizados
 
 #### Reportes de Gastos
+
 - 📊 Gráficas por categoría
 - 📈 Tendencias mensuales
 - 💹 Comparativas anuales
@@ -277,7 +307,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 📝 4.6 ENCUESTAS Y VOTACIONES
 
 #### Crear Encuesta
+
 **Configuración**:
+
 - 📋 Título y descripción
 - ❓ Tipo de preguntas:
   - Opción múltiple
@@ -289,6 +321,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - 🔒 Votación anónima/identificada
 
 #### Participación
+
 - 📱 Notificación automática
 - ✅ Una respuesta por residente
 - 📊 Resultados en tiempo real
@@ -297,7 +330,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 📰 4.7 BLOG Y COMUNICADOS
 
 #### Publicaciones
+
 **Tipos de contenido**:
+
 - 📢 **Avisos importantes**: Urgentes, destacados
 - 📅 **Eventos**: Reuniones, festividades
 - 🔧 **Mantenimiento**: Trabajos programados
@@ -305,6 +340,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - 🎉 **Sociales**: Celebraciones, logros
 
 #### Características
+
 - 📸 Soporte multimedia (imágenes)
 - 💬 Comentarios de residentes
 - 👍 Reacciones (me gusta)
@@ -314,7 +350,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 🎯 4.8 PROPUESTAS DE MEJORA
 
 #### Envío de Propuestas
+
 **Proceso**:
+
 1. Descripción detallada
 2. Categoría de mejora
 3. Presupuesto estimado
@@ -322,6 +360,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 5. Archivos adjuntos
 
 #### Estados de Propuesta
+
 - 📝 **Enviada**: Pendiente de revisión
 - 👀 **En revisión**: Siendo evaluada
 - ✅ **Aprobada**: Aceptada para implementación
@@ -331,7 +370,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 🆘 4.9 SOPORTE Y AYUDA
 
 #### Sistema de Tickets
+
 **Creación de ticket**:
+
 - 📝 Asunto claro y específico
 - 📂 Categoría del problema
 - 🔴 Prioridad (baja/media/alta)
@@ -339,6 +380,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 - 📱 Información de contacto
 
 #### Categorías de Soporte
+
 - 🐛 Errores técnicos
 - ❓ Dudas de uso
 - 💡 Sugerencias
@@ -352,17 +394,21 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 ### 👑 SUPER ADMINISTRADOR - FLUJO DE TRABAJO
 
 #### Configuración Inicial
+
 1. **Acceder al sistema**
+
    - Iniciar sesión con credenciales de super admin
    - Configurar perfil y preferencias
 
 2. **Crear primera privada**
+
    - Ir a "Gestión de Privadas"
    - Clic en "Nueva Privada"
    - Completar formulario
    - Asignar administrador
 
 3. **Gestión de administradores**
+
    - Revisar solicitudes de registro
    - Aprobar/rechazar administradores
    - Asignar permisos específicos
@@ -373,6 +419,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
    - Alertas y notificaciones
 
 #### Tareas Diarias
+
 - ✅ Revisar tickets de soporte
 - ✅ Aprobar nuevos administradores
 - ✅ Monitorear actividad del sistema
@@ -383,6 +430,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Configuración de Privada
 
 1. **Registro de casas**
+
    ```
    Menú → Casas → Agregar Casa
    - Ingresar número de casa
@@ -392,6 +440,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
    ```
 
 2. **Creación de mensualidades**
+
    ```
    Menú → Mensualidades → Crear Mensualidad
    - Opción 1: Individual
@@ -414,7 +463,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Gestión Financiera Diaria
 
 ##### Mañana (9:00 - 12:00)
+
 1. **Revisar pagos pendientes**
+
    - Filtrar mensualidades vencidas
    - Enviar recordatorios
 
@@ -424,7 +475,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
    - Actualizar estados
 
 ##### Tarde (14:00 - 18:00)
+
 1. **Gestión de gastos**
+
    - Registrar gastos del día
    - Adjuntar comprobantes
    - Categorizar correctamente
@@ -435,7 +488,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
    - Crear encuestas si es necesario
 
 #### Cierre Mensual
+
 1. **Generar reportes**
+
    - Balance de ingresos/egresos
    - Lista de morosos
    - Estadísticas de pago
@@ -450,8 +505,9 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Primer Acceso
 
 1. **Registro en la app**
+
    ```
-   1. Descargar app "Control Privada"
+   1. Descargar app "PrivApp"
    2. Tap en "Registrarse"
    3. Ingresar datos personales
    4. Seleccionar su privada
@@ -467,6 +523,7 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Consulta de Mensualidades
 
 1. **Ver estado de cuenta**
+
    ```
    Menú → Mensualidades
    - Verde ✅: Pagado
@@ -482,16 +539,19 @@ Facilitar la administración transparente y eficiente de comunidades residencial
 #### Funciones Disponibles
 
 ##### Comunicación
+
 - **Ver avisos**: Panel principal
 - **Participar en encuestas**: Notificación → Responder
 - **Enviar propuestas**: Menú → Propuestas → Nueva
 
 ##### Consultas
+
 - **Gastos comunitarios**: Menú → Gastos
 - **Eventos próximos**: Blog → Categoría Eventos
 - **Reglamento**: Menú → Documentos
 
 ##### Soporte
+
 - **Reportar problema**: Menú → Soporte → Nuevo Ticket
 - **Ver tickets**: Menú → Mis Tickets
 - **FAQ**: Menú → Ayuda
@@ -528,14 +588,15 @@ R: Sí, consulta con tu administrador para generar las mensualidades futuras.
 ### 📱 Problemas Técnicos
 
 **P: La app no abre/se cierra sola**
-R: 
+R:
+
 1. Reinicia tu dispositivo
 2. Verifica conexión a internet
 3. Actualiza la app
 4. Reinstala si persiste
 
 **P: No recibo notificaciones**
-R: Configuración del teléfono → Notificaciones → Control Privada → Activar
+R: Configuración del teléfono → Notificaciones → PrivApp → Activar
 
 **P: Las imágenes no cargan**
 R: Verifica tu conexión a internet y espacio disponible en el dispositivo.
@@ -569,17 +630,21 @@ R: Sí, en Mensualidades puedes navegar por meses anteriores.
 ### 📞 Canales de Atención
 
 #### Soporte en la App
+
 - **Horario**: 24/7 mediante tickets
 - **Respuesta**: 24-48 horas hábiles
 - **Proceso**: Menú → Soporte → Crear Ticket
 
 #### Contacto Directo
+
 - 📧 **Email**: soporte@controlprivada.com
 - 📱 **WhatsApp**: +52 XXX XXX XXXX
 - 🕐 **Horario**: Lunes a Viernes 9:00 - 18:00
 
 #### Soporte de Emergencia
+
 Para problemas críticos que afecten la operación:
+
 - 🆘 **Línea directa**: +52 XXX XXX XXXX
 - ⏰ **Disponible**: 24/7
 - 🔴 **Solo para**: Fallas masivas del sistema
@@ -587,12 +652,15 @@ Para problemas críticos que afecten la operación:
 ### 🐛 Reporte de Errores
 
 #### Información necesaria:
+
 1. **Descripción del problema**
+
    - ¿Qué intentabas hacer?
    - ¿Qué mensaje de error apareció?
    - ¿Cuándo ocurrió?
 
 2. **Datos del dispositivo**
+
    - Modelo del teléfono
    - Sistema operativo y versión
    - Versión de la app
@@ -607,6 +675,7 @@ Para problemas críticos que afecten la operación:
 Valoramos tu retroalimentación para mejorar el sistema:
 
 **Enviar sugerencia**:
+
 1. Menú → Soporte
 2. Categoría: Sugerencia
 3. Describe tu idea detalladamente
@@ -615,16 +684,19 @@ Valoramos tu retroalimentación para mejorar el sistema:
 ### 📚 Recursos Adicionales
 
 #### Tutoriales en Video
-- 🎥 YouTube: Canal Control Privada
+
+- 🎥 YouTube: Canal PrivApp
 - 📺 Playlist por rol de usuario
 - 🆕 Actualizaciones semanales
 
 #### Documentación
+
 - 📖 Manual PDF descargable
 - 🌐 Wiki en línea
 - 📝 Guías rápidas por función
 
 #### Comunidad
+
 - 💬 Grupo de Facebook
 - 📱 Canal de Telegram
 - 🐦 Twitter: @ControlPrivada
@@ -644,13 +716,13 @@ Valoramos tu retroalimentación para mejorar el sistema:
 
 ### B. Códigos de Error Comunes
 
-| Código | Descripción | Solución |
-|--------|-------------|----------|
-| E001 | Sin conexión | Verificar internet |
-| E002 | Sesión expirada | Iniciar sesión nuevamente |
-| E003 | Permisos insuficientes | Contactar administrador |
-| E004 | Datos inválidos | Revisar información ingresada |
-| E005 | Servidor no disponible | Intentar más tarde |
+| Código | Descripción            | Solución                      |
+| ------ | ---------------------- | ----------------------------- |
+| E001   | Sin conexión           | Verificar internet            |
+| E002   | Sesión expirada        | Iniciar sesión nuevamente     |
+| E003   | Permisos insuficientes | Contactar administrador       |
+| E004   | Datos inválidos        | Revisar información ingresada |
+| E005   | Servidor no disponible | Intentar más tarde            |
 
 ### C. Atajos de Teclado (Web)
 
@@ -665,6 +737,7 @@ Valoramos tu retroalimentación para mejorar el sistema:
 ## 📝 NOTAS DE VERSIÓN
 
 ### Versión 2.0.0 (Actual)
+
 - ✅ Sistema de pagos parciales
 - ✅ Cancelación de pagos con auditoría
 - ✅ Autenticación biométrica
@@ -673,6 +746,7 @@ Valoramos tu retroalimentación para mejorar el sistema:
 - ✅ Interfaz rediseñada
 
 ### Próximas Funcionalidades
+
 - 🔄 Pagos en línea integrados
 - 📊 Dashboard personalizable
 - 📱 Widget para escritorio
@@ -683,19 +757,19 @@ Valoramos tu retroalimentación para mejorar el sistema:
 
 ## ✍️ CONTROL DE CAMBIOS
 
-| Fecha | Versión | Descripción | Autor |
-|-------|---------|-------------|-------|
-| 2024-01-20 | 1.0 | Creación inicial del manual | Sistema |
-| 2024-01-20 | 1.1 | Agregadas FAQ y soporte | Sistema |
-| 2024-01-20 | 2.0 | Manual completo actualizado | Sistema |
+| Fecha      | Versión | Descripción                 | Autor   |
+| ---------- | ------- | --------------------------- | ------- |
+| 2024-01-20 | 1.0     | Creación inicial del manual | Sistema |
+| 2024-01-20 | 1.1     | Agregadas FAQ y soporte     | Sistema |
+| 2024-01-20 | 2.0     | Manual completo actualizado | Sistema |
 
 ---
 
 ## 📄 LICENCIA Y TÉRMINOS
 
-© 2024 Control Privada. Todos los derechos reservados.
+© 2024 PrivApp. Todos los derechos reservados.
 
-Este manual es propiedad intelectual de Control Privada y está protegido por las leyes de derechos de autor. Su reproducción total o parcial sin autorización está prohibida.
+Este manual es propiedad intelectual de PrivApp y está protegido por las leyes de derechos de autor. Su reproducción total o parcial sin autorización está prohibida.
 
 ---
 
@@ -707,7 +781,7 @@ Este manual es propiedad intelectual de Control Privada y está protegido por la
 
 ## 🙏 AGRADECIMIENTOS
 
-Agradecemos a todos los usuarios, administradores y desarrolladores que han contribuido a mejorar Control Privada con sus sugerencias y retroalimentación.
+Agradecemos a todos los usuarios, administradores y desarrolladores que han contribuido a mejorar PrivApp con sus sugerencias y retroalimentación.
 
 Para más información, visita: [www.controlprivada.com](https://www.controlprivada.com)
 
