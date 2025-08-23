@@ -5,10 +5,24 @@ const Expense = require('../models/Expense.model');
 // @access  Private
 exports.getAllExpenses = async (req, res, next) => {
   try {
-    const { status, category, startDate, endDate, sort = '-createdAt' } = req.query;
+    const { status, category, startDate, endDate, community, sort = '-createdAt' } = req.query;
+    
+    console.log('📊 GET /api/expenses - Usuario:', req.user?.name);
+    console.log('🏠 Parámetro community recibido:', community);
+    console.log('👤 CommunityId del usuario en token:', req.user?.communityId);
     
     // Build query
     const query = {};
+    
+    // IMPORTANTE: Filtrar por communityId
+    if (community) {
+      query.communityId = community;
+      console.log('✅ Filtrando gastos por communityId:', community);
+    } else if (req.user?.communityId) {
+      // Si no se envía el parámetro, usar el communityId del usuario
+      query.communityId = req.user.communityId;
+      console.log('✅ Filtrando gastos por communityId del usuario:', req.user.communityId);
+    }
     
     if (status) query.status = status;
     if (category) query.category = category;
@@ -19,10 +33,17 @@ exports.getAllExpenses = async (req, res, next) => {
       if (endDate) query.date.$lte = new Date(endDate);
     }
     
+    console.log('🔍 Query final:', JSON.stringify(query));
+    
     const expenses = await Expense.find(query)
       .populate('createdBy', 'name email')
       .populate('approvedBy', 'name email')
       .sort(sort);
+    
+    console.log(`📦 Gastos encontrados: ${expenses.length}`);
+    if (expenses.length > 0) {
+      console.log('📝 Primer gasto:', expenses[0].title, '- CommunityId:', expenses[0].communityId);
+    }
     
     // Calculate totals
     const totals = {
@@ -101,11 +122,17 @@ exports.createExpense = async (req, res, next) => {
       });
     }
 
+    console.log('➕ Creando gasto - Usuario:', req.user?.name);
+    console.log('🏠 CommunityId del usuario:', req.user?.communityId);
+
     // Create expense data with correct field names
     const expenseData = {
       ...req.body,
-      createdBy: req.user._id
+      createdBy: req.user._id,
+      communityId: req.user.communityId // Asignar automáticamente la comunidad del usuario
     };
+    
+    console.log('📝 Datos del gasto a crear:', expenseData);
     
     const expense = await Expense.create(expenseData);
     

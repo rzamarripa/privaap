@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../services/auth_service.dart';
+import '../../services/expense_service.dart';
 import '../../services/biometric_service.dart';
 import 'help_center_screen.dart';
 import 'contact_support_screen.dart';
@@ -593,6 +594,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
           TextButton(
             onPressed: () async {
               final authService = Provider.of<AuthService>(context, listen: false);
+              final expenseService = Provider.of<ExpenseService>(context, listen: false);
+              
+              // Limpiar gastos antes de hacer logout
+              expenseService.clearExpenses();
+              
               await authService.logout();
 
               if (context.mounted) {

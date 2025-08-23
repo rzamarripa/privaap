@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
 import 'api_service.dart';
+import 'expense_service.dart';
 
 class AuthService extends ChangeNotifier {
   User? _currentUser;
@@ -58,6 +59,10 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('userRole', _currentUser!.role.toString());
         if (_currentUser!.house != null) {
           await prefs.setString('userHouse', _currentUser!.house!);
+        }
+        if (_currentUser!.communityId != null) {
+          await prefs.setString('userCommunityId', _currentUser!.communityId!);
+          print('🔐 CommunityId guardado: ${_currentUser!.communityId}');
         }
         await prefs.setBool('isAuthenticated', true);
 
@@ -132,6 +137,7 @@ class AuthService extends ChangeNotifier {
       await prefs.remove('userEmail');
       await prefs.remove('userRole');
       await prefs.remove('userHouse');
+      await prefs.remove('userCommunityId');
       await prefs.remove('isAuthenticated');
       await prefs.remove('auth_token');
 
@@ -177,6 +183,7 @@ class AuthService extends ChangeNotifier {
         final userEmail = prefs.getString('userEmail');
         final userRoleString = prefs.getString('userRole');
         final userHouse = prefs.getString('userHouse');
+        final userCommunityId = prefs.getString('userCommunityId');
 
         if (userName != null && userPhone != null && userEmail != null && userRoleString != null) {
           // Recrear objeto User desde datos locales
@@ -196,6 +203,7 @@ class AuthService extends ChangeNotifier {
             email: userEmail,
             role: userRole,
             house: userHouse,
+            communityId: userCommunityId,
             createdAt: DateTime.now(),
             isActive: true,
           );
@@ -213,9 +221,12 @@ class AuthService extends ChangeNotifier {
               final userData = response.data as Map<String, dynamic>;
               _currentUser = User.fromJson(userData);
 
-              // Guardar la casa actualizada en SharedPreferences
+              // Guardar la casa y comunidad actualizadas en SharedPreferences
               if (_currentUser!.house != null) {
                 await prefs.setString('userHouse', _currentUser!.house!);
+              }
+              if (_currentUser!.communityId != null) {
+                await prefs.setString('userCommunityId', _currentUser!.communityId!);
               }
 
               notifyListeners();

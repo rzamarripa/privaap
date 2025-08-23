@@ -1,0 +1,79 @@
+version: "3.8"
+
+services:
+  # API Node.js
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: privaap-api
+    restart: unless-stopped
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=production
+      - PORT=3004
+      - MONGODB_URI=mongodb://host.docker.internal:27017/privaap
+      - JWT_SECRET=your_jwt_secret_here_change_in_production
+      - CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+      - CLOUDINARY_API_KEY=your_cloudinary_api_key
+      - CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=your_email@gmail.com
+      - SMTP_PASS=your_app_password
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    # MongoDB local - no depende de contenedor
+    networks:
+      - privaap-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3004/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # MongoDB Express (interfaz web opcional para MongoDB local)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: privaap-mongo-express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=host.docker.internal
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=privaap123
+    networks:
+      - privaap-network
+
+  # Redis (opcional, para cache y rate limiting)
+  redis:
+    image: redis:7-alpine
+    container_name: privaap-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - privaap-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  privaap-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

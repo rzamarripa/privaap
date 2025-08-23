@@ -1,11 +1,11 @@
 class ApiConfig {
   // Base configuration
-  static const String host = '192.168.68.101';
+  static const String host = '192.168.68.120';
   static const int port = 3004;
   static const String apiPath = '/api';
 
   // Full base URL
-  static const String baseUrl = 'http://192.168.68.101:3004/api';
+  static const String baseUrl = 'http://192.168.68.120:3004/api';
 
   // Alternative URLs for different environments
   static const String localhostUrl = 'http://localhost:3004/api';

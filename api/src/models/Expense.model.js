@@ -32,6 +32,11 @@ const expenseSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  communityId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Community',
+    required: true
+  },
   receipt: {
     type: String,
     default: null
@@ -69,6 +74,7 @@ const expenseSchema = new mongoose.Schema({
 });
 
 // Add indexes for better query performance
+expenseSchema.index({ communityId: 1, status: 1 });
 expenseSchema.index({ category: 1, status: 1 });
 expenseSchema.index({ createdBy: 1 });
 expenseSchema.index({ date: -1 });

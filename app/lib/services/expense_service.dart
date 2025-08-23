@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/expense_model.dart';
 import 'api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExpenseService extends ChangeNotifier {
   List<Expense> _expenses = [];
@@ -53,15 +54,54 @@ class ExpenseService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _apiService.get('/expenses');
+      // Limpiar gastos anteriores para evitar mezcla de datos
+      _expenses.clear();
+      
+      // Obtener el communityId del usuario logueado
+      final prefs = await SharedPreferences.getInstance();
+      final userCommunityId = prefs.getString('userCommunityId');
+      
+      print('🔍 Cargando gastos del backend');
+      print('👤 CommunityId del usuario actual: $userCommunityId');
+      
+      // Enviar el communityId como parámetro para filtrar los gastos
+      Map<String, String>? queryParams;
+      if (userCommunityId != null && userCommunityId.isNotEmpty) {
+        queryParams = {'community': userCommunityId};
+        print('📤 Enviando parámetro community: $userCommunityId');
+      } else {
+        print('⚠️ Usuario sin communityId, cargando todos los gastos disponibles');
+      }
+      
+      final response = await _apiService.get('/expenses', queryParams: queryParams);
 
       if (response.isSuccess && response.data != null) {
         // response.data is already the extracted data from ApiService
         final List<dynamic> expensesData = response.data as List<dynamic>;
         _expenses = expensesData.map((data) => Expense.fromJson(data as Map<String, dynamic>)).toList();
+        
+        print('✅ Gastos cargados: ${_expenses.length} gastos');
+        
+        // Log detallado de los primeros gastos para verificar
+        if (_expenses.isNotEmpty) {
+          print('📋 Primer gasto: ${_expenses.first.title}');
+          print('📅 Fecha: ${_expenses.first.date}');
+          print('💰 Monto: ${_expenses.first.amount}');
+          print('👥 Creado por: ${_expenses.first.createdBy}');
+          print('🏠 CommunityId del gasto: ${_expenses.first.communityId}');
+          
+          // Verificar que todos los gastos son de la comunidad correcta
+          for (var expense in _expenses) {
+            if (expense.communityId != userCommunityId) {
+              print('⚠️ ALERTA: Gasto "${expense.title}" tiene communityId diferente: ${expense.communityId}');
+            }
+          }
+        } else {
+          print('⚠️ No hay gastos para la comunidad: $userCommunityId');
+        }
       }
     } catch (e) {
-      print('Error loading expenses: $e');
+      print('❌ Error loading expenses: $e');
       // Mantener datos locales en caso de error
     }
 
@@ -201,5 +241,12 @@ class ExpenseService extends ChangeNotifier {
   // Refresh data from API
   Future<void> refresh() async {
     await loadExpenses();
+  }
+  
+  // Limpiar todos los gastos (útil al cambiar de usuario o comunidad)
+  void clearExpenses() {
+    _expenses.clear();
+    notifyListeners();
+    print('🧹 Gastos limpiados');
   }
 }

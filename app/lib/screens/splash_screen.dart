@@ -152,7 +152,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ),
               const SizedBox(height: 30),
               const Text(
-                'Control Privada',
+                'PrivApp',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 32,

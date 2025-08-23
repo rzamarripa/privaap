@@ -35,6 +35,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       final expenseService = Provider.of<ExpenseService>(context, listen: false);
       final surveyService = Provider.of<SurveyService>(context, listen: false);
       final blogService = Provider.of<BlogService>(context, listen: false);
+      final authService = Provider.of<AuthService>(context, listen: false);
+
+      // Log para verificar la comunidad del usuario
+      print('📍 Usuario: ${authService.currentUser?.name}');
+      print('📍 CommunityId: ${authService.currentUser?.communityId}');
 
       // Cargar sólo si las listas están vacías para evitar llamadas duplicadas
       final List<Future<void>> tasks = [];
@@ -72,11 +77,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
+            // Log para verificar el communityId al hacer refresh
+            print('🔄 Pull to Refresh iniciado');
+            print('👤 Usuario: ${authService.currentUser?.name}');
+            print('🏠 CommunityId del usuario: ${authService.currentUser?.communityId}');
+            print('📱 Rol del usuario: ${authService.currentUser?.role}');
+            
             await Future.wait([
               expenseService.loadExpenses(),
               Provider.of<SurveyService>(context, listen: false).loadSurveys(),
               Provider.of<BlogService>(context, listen: false).refresh(),
             ]);
+            
+            print('✅ Pull to Refresh completado');
+            print('📊 Gastos cargados: ${expenseService.expenses.length}');
           },
           color: const Color(0xFF2196F3),
           child: CustomScrollView(
@@ -177,6 +191,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildQuickStats(ExpenseService expenseService) {
+    // Log del estado actual de gastos
+    print('🎯 _buildQuickStats - Total gastos en memoria: ${expenseService.expenses.length}');
+    print('💵 Total pendientes: \$${expenseService.totalPendingExpenses}');
+    print('💵 Total pagados: \$${expenseService.totalPaidExpenses}');
+    
     final surveyService = Provider.of<SurveyService>(context);
     final activeSurveys = surveyService.activeSurveys.length;
     final recentSurveys = surveyService.surveys
@@ -326,24 +345,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Gastos por Categoría',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  // TODO: Navigate to detailed expenses
-                },
-                child: const Text('Ver todo'),
-              ),
-            ],
+          const Text(
+            'Gastos por Categoría',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1A237E),
+            ),
           ),
           const SizedBox(height: 20),
           if (categoryExpenses.isNotEmpty)
@@ -482,7 +490,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildRecentActivity(ExpenseService expenseService) {
+    // Los gastos ya vienen filtrados por comunidad desde el backend
+    // El endpoint /expenses solo devuelve gastos de la comunidad del usuario autenticado
+    print('🔎 _buildRecentActivity - Total gastos disponibles: ${expenseService.expenses.length}');
     final recentExpenses = expenseService.expenses.take(5).toList();
+    print('📝 Mostrando ${recentExpenses.length} gastos recientes');
+    for (var expense in recentExpenses) {
+      print('  - ${expense.title}: \$${expense.amount} (${expense.status})');
+    }
 
     return Container(
       padding: const EdgeInsets.all(20),

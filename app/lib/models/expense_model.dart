@@ -6,6 +6,7 @@ class Expense {
   final ExpenseCategory category;
   final DateTime date;
   final String createdBy;
+  final String? communityId;
   final String? receipt;
   final ExpenseStatus status;
   final List<String> attachments;
@@ -18,6 +19,7 @@ class Expense {
     required this.category,
     required this.date,
     required this.createdBy,
+    this.communityId,
     this.receipt,
     this.status = ExpenseStatus.pendiente,
     this.attachments = const [],
@@ -39,6 +41,7 @@ class Expense {
       createdBy: json['createdBy'] is String 
           ? json['createdBy'] 
           : json['createdBy']?['_id']?.toString() ?? 'unknown',
+      communityId: json['communityId']?.toString(),
       receipt: json['receipt'],
       status: ExpenseStatus.values.firstWhere(
         (e) => e.toString() == 'ExpenseStatus.${json['status']}',
@@ -57,6 +60,7 @@ class Expense {
       'category': category.toString().split('.').last,
       'date': date.toIso8601String(),
       'createdBy': createdBy,
+      'communityId': communityId,
       'receipt': receipt,
       'status': status.toString().split('.').last,
       'attachments': attachments,
@@ -84,6 +88,7 @@ class Expense {
     ExpenseCategory? category,
     DateTime? date,
     String? createdBy,
+    String? communityId,
     String? receipt,
     ExpenseStatus? status,
     List<String>? attachments,
@@ -96,6 +101,7 @@ class Expense {
       category: category ?? this.category,
       date: date ?? this.date,
       createdBy: createdBy ?? this.createdBy,
+      communityId: communityId ?? this.communityId,
       receipt: receipt ?? this.receipt,
       status: status ?? this.status,
       attachments: attachments ?? this.attachments,

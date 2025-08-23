@@ -64,6 +64,12 @@ class ApiService {
       final uri = Uri.parse('$baseUrl$endpoint');
       final uriWithParams = queryParams != null ? uri.replace(queryParameters: queryParams) : uri;
 
+      // Log para debug de peticiones GET
+      print('🌐 GET Request: ${uriWithParams.toString()}');
+      if (queryParams != null) {
+        print('📝 Query Params: $queryParams');
+      }
+
       final response = await http.get(uriWithParams, headers: _headers);
       return _handleResponse<T>(response);
     } catch (e) {
