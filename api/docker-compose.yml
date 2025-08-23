@@ -1,5 +1,9 @@
 version: "3.8"
 
+# Configuración para Linux con MongoDB local
+# MongoDB se ejecuta en el host (servidor) no en contenedor
+# Los contenedores se conectan a MongoDB usando la IP del gateway de Docker (172.17.0.1)
+
 services:
   # API Node.js
   api:
@@ -13,7 +17,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3004
-      - MONGODB_URI=mongodb://host.docker.internal:27017/privaap
+      - MONGODB_URI=mongodb://privaap_admin:privaap123@172.17.0.1:27017/privaap?authSource=admin
       - JWT_SECRET=your_jwt_secret_here_change_in_production
       - CLOUDINARY_CLOUD_NAME=your_cloudinary_name
       - CLOUDINARY_API_KEY=your_cloudinary_api_key
@@ -28,6 +32,8 @@ services:
     # MongoDB local - no depende de contenedor
     networks:
       - privaap-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3004/api/health"]
       interval: 30s
@@ -43,12 +49,14 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - ME_CONFIG_MONGODB_SERVER=host.docker.internal
+      - ME_CONFIG_MONGODB_SERVER=172.17.0.1
       - ME_CONFIG_MONGODB_PORT=27017
       - ME_CONFIG_BASICAUTH_USERNAME=admin
       - ME_CONFIG_BASICAUTH_PASSWORD=privaap123
     networks:
       - privaap-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   # Redis (opcional, para cache y rate limiting)
   redis:
