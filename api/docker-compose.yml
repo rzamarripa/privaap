@@ -18,7 +18,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3004
-      - MONGODB_URI=mongodb://privaap_admin:privaap123@172.17.0.1:27017/privaap?authSource=admin
+      - MONGODB_URI=mongodb://privaap_admin:privaap123@127.0.0.1:27017/privaap?authSource=admin
       - JWT_SECRET=your_jwt_secret_here_change_in_production
       - CLOUDINARY_CLOUD_NAME=your_cloudinary_name
       - CLOUDINARY_API_KEY=your_cloudinary_api_key
