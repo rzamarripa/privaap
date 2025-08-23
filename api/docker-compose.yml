@@ -3,6 +3,7 @@ version: "3.8"
 # Configuración para Linux con MongoDB local
 # MongoDB se ejecuta en el host (servidor) no en contenedor
 # Los contenedores se conectan a MongoDB usando la IP del gateway de Docker (172.17.0.1)
+# Servicios: API Node.js + Redis (MongoDB local)
 
 services:
   # API Node.js
@@ -40,23 +41,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-
-  # MongoDB Express (interfaz web opcional para MongoDB local)
-  mongo-express:
-    image: mongo-express:latest
-    container_name: privaap-mongo-express
-    restart: unless-stopped
-    ports:
-      - "8081:8081"
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=172.17.0.1
-      - ME_CONFIG_MONGODB_PORT=27017
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=privaap123
-    networks:
-      - privaap-network
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   # Redis (opcional, para cache y rate limiting)
   redis:
